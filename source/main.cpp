@@ -27,5 +27,7 @@ void InsertPoints()
 int main()
 {
   InsertPoints();
-  cout<<tree.find(0.098843, 2.533042, 0.042416)<<endl;
+  cout<<tree.find(Point<float>(0.098843, 2.533042, 0.042416))<<endl;
+  tree.erase(Point<float>(0.098843, 2.533042, 0.042416));
+  cout<<tree.find(Point<float>(0.098843, 2.533042, 0.042416))<<endl;
 }
