@@ -115,8 +115,7 @@ class Octree
             current->child[i] = nullptr;
           }
         }
-      }
-    }
+      }}
   }
 
   void erase(Point<T> point)
