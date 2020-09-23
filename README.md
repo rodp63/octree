@@ -15,3 +15,7 @@ $ cd build
 $ make
 $ ./octree
 ```
+The example obj file is in 'files/sample.obj', but another obj file can be loaded specifying the file path as a parameter in the executable:
+```bash
+$ ./octree obj_path
+```
