@@ -1,14 +1,14 @@
-#include "octree.h"
-
+#include "PR-octree.h"
 using namespace std;
 
-#define PATH "../files/person.obj"
+#define PATH "../../files/sample.obj"
+enum {INSERT, ERASE};
 
 Point<float> A(-0.50, -0.02, -0.30); // lower bound
-Point<float> B(0.55, 2.92, 0.40);    // upper bound
-Octree<float,5> tree(A, B);
+Point<float> B(0.55, 2.95, 0.40);    // upper bound
+Octree<float,10> tree(A, B);
 
-void InsertPoints()
+void ManagePoints(int cod)
 {
   ifstream points(PATH);
   string tag;
@@ -18,7 +18,8 @@ void InsertPoints()
   {
     if(tag != "v") break;
     points >> x >> y >> z;
-    tree.insert(Point<float>(x, y, z));
+    if(cod == INSERT) tree.insert(Point<float>(x, y, z));
+    if(cod == ERASE) tree.erase(Point<float>(x, y, z));
     count++;
   }
   points.close();
@@ -26,8 +27,11 @@ void InsertPoints()
 
 int main()
 {
-  InsertPoints();
+  ManagePoints(INSERT);
+  
   cout<<tree.find(Point<float>(0.098843, 2.533042, 0.042416))<<endl;
   tree.erase(Point<float>(0.098843, 2.533042, 0.042416));
   cout<<tree.find(Point<float>(0.098843, 2.533042, 0.042416))<<endl;
+  
+  ManagePoints(ERASE);
 }
