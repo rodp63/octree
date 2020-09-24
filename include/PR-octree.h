@@ -1,8 +1,8 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <cmath>
 using namespace std;
 
 
@@ -82,13 +82,13 @@ class Octree
   bool find(Point<T> point)
   {
     Node<T>* tmp, *tmp2;
-    return find(point, tmp, tmp2);
+    return (fit(point, root) && find(point, tmp, tmp2));
   }
 
   void insert(Point<T> point, Node<T> *head = nullptr)
   {
     Node<T> *pos, *tmp;
-    if(!find(point, pos, tmp, head))
+    if(fit(point, root) && !find(point, pos, tmp, head))
     {
       if(pos->data.size() == CAPACITY)
       {
@@ -118,7 +118,7 @@ class Octree
   void erase(Point<T> point)
   {
     Node<T> *pos, *parent;
-    if(find(point, pos, parent))
+    if(fit(point, root) && find(point, pos, parent))
     {
       auto it = pos->data.begin();
       while(*it != point) ++it;

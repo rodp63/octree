@@ -1,9 +1,9 @@
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 #include <stack>
-#include <cmath>
 using namespace std;
 
 
@@ -69,13 +69,13 @@ class Octree
   bool find(Point<T> point)
   {
     stack<Node<T>*> tmp;
-    return find(point, tmp, BLACK);
+    return (fit(point, root) && find(point, tmp, BLACK));
   }
 
   void insert(Point<T> point, int col = BLACK)
   {
     stack<Node<T>*> path;
-    if(!find(point, path, col))
+    if(fit(point, root) && !find(point, path, col))
     {
       while(path.size() != DEPTH)
       {
