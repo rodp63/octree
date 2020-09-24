@@ -1,4 +1,4 @@
-project("range-Octree")
+project("region-Octree")
 
 cmake_minimum_required(VERSION 3.15)
 
