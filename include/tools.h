@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 const float inf = 1e9;
@@ -13,14 +14,18 @@ struct tools{
   static pair<Point<T>, Point<T> > GetBounds(char path[])
   {
     ifstream points(path);
-    string tag;
+    string line, tag;
     T x, y, z, mx, my, mz, Mx, My, Mz;
     mx = my = mz = inf;
     Mx = My = Mz = -inf;
-    while(points >> tag)
+    while(getline(points, line))
     {
-      if(tag != "v") break;
-      points >> x >> y >> z;
+      size_t pos = line.find(' ');
+      if(pos == string::npos) continue;
+      tag = line.substr(0, pos);
+      if(tag != "v") continue;
+      stringstream point(line.substr(pos));
+      point >> x >> y >> z;
       mx = min(mx, x);
       my = min(my, y);
       mz = min(mz, z);
@@ -45,13 +50,17 @@ struct tools{
   static int ManagePoints(Octree<T,S> &tree, int cod, char path[])
   {
     ifstream points(path);
-    string tag;
+    string line, tag;
     T x, y, z;
     int count = 0;
-    while(points >> tag)
+    while(getline(points, line))
     {
-      if(tag != "v") break;
-      points >> x >> y >> z;
+      size_t pos = line.find(' ');
+      if(pos == string::npos) continue;
+      tag = line.substr(0, pos);
+      if(tag != "v") continue;
+      stringstream point(line.substr(pos));
+      point >> x >> y >> z;
       if(cod == INSERT) tree.insert(Point<T>(x, y, z));
       if(cod == ERASE) tree.erase(Point<T>(x, y, z));
       count++;
