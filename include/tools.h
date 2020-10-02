@@ -35,10 +35,13 @@ struct tools{
     }
     // Expand the bound by 10% and make a cube
     T dist = max(Mx - mx, max(My - my, Mz - mz));
-    dist += dist / 10;
-    Mx = mx + dist;
-    My = my + dist;
-    Mz = mz + dist;
+    T plus = dist / 10;
+    Mx = mx + dist + plus;
+    My = my + dist + plus;
+    Mz = mz + dist + plus;
+    mx -= plus;
+    my -= plus;
+    mz -= plus;
     cout << "Lower bound : (" << mx << "," << my << "," << mz << ")\n";
     cout << "Upper bound : (" << Mx << "," << My << "," << Mz << ")\n";
     points.close();
