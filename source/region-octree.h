@@ -1,4 +1,6 @@
 #pragma once
+#include "scenemodifier.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -122,6 +124,24 @@ class Octree
   void erase(Point<T> point)
   {
     insert(point, WHITE);
+  }
+
+  void dfs(Qt3DCore::QEntity *entity, Node<T> *cur = nullptr)
+  {
+    if(cur == nullptr) cur = root;
+    if(cur->child[0])
+    {
+      for(int i = 0; i < 8; ++i) dfs(entity, cur->child[i]);
+    }
+    else if(cur->color == BLACK)
+    {
+      T cx, cy, cz, cube_size;
+      cx = (cur->minBound.x + cur->maxBound.x) / 2;
+      cy = (cur->minBound.y + cur->maxBound.y) / 2;
+      cz = (cur->minBound.z + cur->maxBound.z) / 2;
+      cube_size = cur->maxBound.x - cur->minBound.x;
+      SceneModifier *p = new SceneModifier(entity, cx, cy, cz, cube_size);
+    }
   }
 
 };

@@ -1,21 +1,10 @@
-# Octree
-To run the project:
-1. Select the directory of the tree
-   ```bash
-   $ cd PR-octree
-   ```
-   or
-   ```bash
-   $ cd region-octree
-   ```
-2. Run the following commands:
-   ```bash
-   $ cmake -B build
-   $ cd build
-   $ make
-   $ ./octree
-   ```
-The example obj file is in `files/sample.obj`, but another obj file can be loaded specifying its path as a parameter in the executable:
+# Octree Visualization
+To run the project type the following commands:
 ```bash
-$ ./octree obj_path
+$ cmake -B build
+$ cd build
+$ make
+$ ./octree-visualization
 ```
+You can use the mouse and arrow keys within the visualization window.
+The default value of the **depth** variable in the `main.cpp` file is 7. If this value decreases fewer cubes are produced, and therefore, the resolution of the object also decreases.
